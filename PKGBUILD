@@ -1,25 +1,28 @@
-# Maintainer: Marc ROZANC <marc@rozanc.fr>
+# Contributor: Marc ROZANC <marc@rozanc.fr>
+# Maintainer: Yonggang Li <gnaggnoyil@gmail.com>
 
 _pkgbase='clevo-xsm-wmi'
 _modname=$_pkgbase
-pkgname="${_pkgbase}-dkms"
+pkgname="${_pkgbase}-P775TM-dkms"
 pkgver='1.1'
 _pkgtag='dcf282992eb8'
-pkgrel=7
+pkgrel=1
 pkgdesc='A reverse engineering driver for the Clevo SM series backlight keyboard (DKMS version)'
 arch=('i686' 'x86_64')
 license=('GPL')
 url='https://bitbucket.org/tuxedocomputers/clevo-xsm-wmi'
 options=(!emptydirs)
-conflicts=("$_pkgbase" 'tuxedo-wmi' 'tuxedo-wmi-dkms')
+conflicts=("$_pkgbase" "${_pkgbase}-dkms" 'tuxedo-wmi' 'tuxedo-wmi-dkms')
 provides=("$_pkgbase")
 depends=('dkms' 'gcc' 'make' 'linux-headers')
-source=("clevo-xsm-wmi-${_pkgtag}.src.tar.gz::https://bitbucket.org/tuxedocomputers/clevo-xsm-wmi/get/${_pkgtag}.tar.gz"
+source=("clevo-xsm-wmi-P775TM-${_pkgtag}.src.tar.gz::https://bitbucket.org/tuxedocomputers/clevo-xsm-wmi/get/${_pkgtag}.tar.gz"
         "P950ER.patch"
+        "P775TM.patch"
         "dkms.conf"
         "Makefile")
 sha256sums=('dd326e9855b708b7ab922d47b3abcd24c53a3af4fdc1c164399c8dbdb5a7f6ce'
             'ccd1a9277c055b702eb05662484c0c6b0e62f6fae255030d3a30975984b0c427'
+            'ca0729bcf1943c261ca75b213c150be9b07af49ed50f812d1f347cf754ebc56e'
             '0cdf0213692a71d69f54730d1856d9f1e7b3d363d9b2a66a5d6bb363e8d8212f'
             'fb20847bde676a305fda41b865b46aff52ae9de60e1262d6e9725a71d72b806b')
 install='clevo-xsm-wmi-dkms.install'
@@ -27,6 +30,7 @@ install='clevo-xsm-wmi-dkms.install'
 prepare() {
     cd "${srcdir}/tuxedocomputers-clevo-xsm-wmi-${_pkgtag}"
     patch -i "${srcdir}/P950ER.patch" -p1
+    patch -i "${srcdir}/P775TM.patch" -p1
 }
 
 package() {
